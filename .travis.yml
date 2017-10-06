@@ -10,9 +10,8 @@ install:
   - docker -v
 script:
   - docker build -t darkxahtep/climatemeter-web:latest .
-deploy:
-  provider: script
-  script:
-    - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-    - docker push darkxahtep/climatemeter-web
-  skip_cleanup: true
+after_success:
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+    docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+    docker push darkxahtep/climatemeter-web;
+    fi
