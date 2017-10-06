@@ -1,9 +1,12 @@
-language: csharp
-mono: none
-dotnet: 2.0.0
-dist: trusty
-sudo: false
-install:
-- dotnet restore
+sudo: required
+services:
+- docker
+language: bash
 script:
-- dotnet build
+- docker build -t darkxahtep/climatemeter-web:latest .
+deploy:
+  provider: script
+  script:
+  - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+  - docker push darkxahtep/climatemeter-web
+  skip_cleanup: true
