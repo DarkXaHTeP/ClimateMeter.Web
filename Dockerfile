@@ -13,4 +13,6 @@ RUN dotnet publish -c Release -o out
 FROM microsoft/aspnetcore:2.0
 WORKDIR /app
 COPY --from=build-env /app/out ./
+ENV ASPNETCORE_URLS http://0.0.0.0:5000
+EXPOSE 5000
 ENTRYPOINT ["dotnet", "ClimateMeter.Web.dll"]
