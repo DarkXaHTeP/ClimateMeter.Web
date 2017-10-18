@@ -1,9 +1,7 @@
 ﻿using ClimateMeter.Web.DAL;
-using ClimateMeter.Web.Exceptions;
 using ClimateMeter.Web.Middleware;
 using ClimateMeter.Web.Serialization;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
