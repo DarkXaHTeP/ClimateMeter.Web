@@ -4,6 +4,10 @@ namespace ClimateMeter.Web.DAL
 {
     public class ClimateMeterContext: DbContext
     {
+        public ClimateMeterContext(DbContextOptions<ClimateMeterContext> options): base(options)
+        {
+        }
+
         public DbSet<Device> Devices { get; set; }
         public DbSet<SensorReading> SensorReadings { get; set; }
         
