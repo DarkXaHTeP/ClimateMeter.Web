@@ -3,6 +3,7 @@ using ClimateMeter.Web.Exceptions;
 using ClimateMeter.Web.Middleware;
 using ClimateMeter.Web.Serialization;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,7 +35,7 @@ namespace ClimateMeter.Web
                 .EnsureMigrationsApplied<ClimateMeterContext>()
                 .UseDeveloperExceptionPage()
                 .UseStaticFiles()
-                .UseMvc();
+                .UseMvc(routes => routes.MapRoute("catchAll", "{*url}", new { controller = "Home", action = "Index" }));
         }
     }
 }
