@@ -32,9 +32,10 @@ namespace ClimateMeter.Web
                 })
                 .ConfigureLogging((hostingContext, logging) =>
                 {
-                    logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
-                    logging.AddConsole();
-                    logging.AddDebug();
+                    logging
+                        .AddConfiguration(hostingContext.Configuration.GetSection("Logging"))
+                        .AddConsole()
+                        .AddDebug();
                 })
                 .UseDefaultServiceProvider((context, options) =>
                 {
