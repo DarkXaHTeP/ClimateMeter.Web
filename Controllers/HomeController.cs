@@ -1,7 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
 using ClimateMeter.Web.DAL;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace ClimateMeter.Web.Controllers
 {
@@ -20,9 +19,9 @@ namespace ClimateMeter.Web.Controllers
         }
 
         [Route("sensorreadings")]
-        public async Task<IActionResult> SensorReadings()
+        public IActionResult SensorReadings()
         {
-            var readings = await _dbContext.SensorReadings.ToArrayAsync();
+            var readings = _dbContext.SensorReadings.ToArray();
             return Ok(readings);
         }
     }
