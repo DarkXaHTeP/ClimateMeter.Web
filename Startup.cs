@@ -30,8 +30,8 @@ namespace ClimateMeter.Web
         public void Configure(IApplicationBuilder app)
         {
             app
-                .EnsureMigrationsApplied<ClimateMeterContext>()
                 .UseDeveloperExceptionPage()
+                .EnsureMigrationsApplied<ClimateMeterContext>()
                 .UseStaticFiles()
                 .UseMvc(routes => routes.MapRoute("catchAll", "{*url}", new { controller = "Home", action = "Index" }));
         }
