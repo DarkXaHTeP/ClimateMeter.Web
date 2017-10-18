@@ -25,7 +25,7 @@ namespace ClimateMeter.Web
             
             services
                 .AddDbContext<ClimateMeterContext>(options => options.UseSqlServer(connectionString))
-                .AddMvc(options => options.Filters.Add<GlobalExceptionFilter>())
+                .AddMvc()
                 .AddJsonOptions(options => JsonSerializerSettingsProvider.SetSettings(options.SerializerSettings));
         }
 
