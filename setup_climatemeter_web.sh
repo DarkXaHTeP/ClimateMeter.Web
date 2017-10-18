@@ -9,4 +9,4 @@ sudo docker run --name web \
     -e VIRTUAL_PORT=5000 \
     -e LETSENCRYPT_HOST=climatemeter.darkxahtep.co.ua \
     -e LETSENCRYPT_EMAIL=darkxahtep@gmail.com \
-    --restart always -d darkxahtep/climatemeter-web
+    --restart always -d -it darkxahtep/climatemeter-web
