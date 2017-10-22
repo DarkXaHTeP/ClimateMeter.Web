@@ -1,4 +1,5 @@
 ﻿using ClimateMeter.Web.DAL;
+using ClimateMeter.Web.Hubs;
 using ClimateMeter.Web.Middleware;
 using ClimateMeter.Web.Serialization;
 using Microsoft.AspNetCore.Builder;
@@ -20,11 +21,11 @@ namespace ClimateMeter.Web
         public void ConfigureServices(IServiceCollection services)
         {
             var connectionString = _configuration.GetConnectionString("ClimateMeter.DB");
-            
-            services
-                .AddDbContext<ClimateMeterContext>(options => options.UseSqlServer(connectionString))
-                .AddMvc()
-                .AddJsonOptions(options => JsonSerializerSettingsProvider.SetSettings(options.SerializerSettings));
+
+            services.AddDbContext<ClimateMeterContext>(options => options.UseSqlServer(connectionString));
+            services.AddSignalR();
+            services.AddMvc()
+                    .AddJsonOptions(options => JsonSerializerSettingsProvider.SetSettings(options.SerializerSettings));
         }
 
         public void Configure(IApplicationBuilder app)
@@ -33,6 +34,7 @@ namespace ClimateMeter.Web
                 .UseDeveloperExceptionPage()
                 .EnsureMigrationsApplied<ClimateMeterContext>()
                 .UseStaticFiles()
+                .UseSignalR(routes => routes.MapHub<ClimateHub>("socket/device"))
                 .UseMvc(routes => routes.MapRoute("catchAll", "{*url}", new { controller = "Home", action = "Index" }));
         }
     }
