@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
 using ClimateMeter.Web.DAL;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 
 namespace ClimateMeter.Web.Hubs
 {
+    [Authorize]
     public class ClimateHub: Hub
     {
         private readonly ClimateMeterContext _db;
