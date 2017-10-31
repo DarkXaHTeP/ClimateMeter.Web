@@ -1,4 +1,5 @@
-﻿using ClimateMeter.Web.Authorization;
+﻿using System;
+using ClimateMeter.Web.Authorization;
 using ClimateMeter.Web.DAL;
 using ClimateMeter.Web.Hubs;
 using ClimateMeter.Web.Middleware;
@@ -36,7 +37,8 @@ namespace ClimateMeter.Web
                 {
                     options.Authority = $"{authorizationSettings.Instance}/{authorizationSettings.TenantId}";
                     options.Audience = authorizationSettings.ClientId;
-                });
+                })
+                .AddSignalRJwtParsing();
             
             services.AddDbContext<ClimateMeterContext>(options => options.UseSqlServer(connectionString));
             services.AddSignalR();
