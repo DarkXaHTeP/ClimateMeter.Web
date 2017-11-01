@@ -33,12 +33,11 @@ namespace ClimateMeter.Web
                     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 })
-                .AddJwtBearer(options =>
+                .AddJwtBearerWithSignalR(options =>
                 {
                     options.Authority = $"{authorizationSettings.Instance}/{authorizationSettings.TenantId}";
                     options.Audience = authorizationSettings.ClientId;
-                })
-                .AddSignalRJwtParsing();
+                });
             
             services.AddDbContext<ClimateMeterContext>(options => options.UseSqlServer(connectionString));
             services.AddSignalR();
