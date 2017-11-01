@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
@@ -7,7 +8,7 @@ namespace ClimateMeter.Web.Hubs
 {
     public static class AuthenticationBuilderSignalRExtensions
     {
-        private static readonly string _defaultJwtTokenQueryStringParameter = "JWT_TOKEN";
+        private const string DefaultJwtTokenQueryStringParameter = "JWT_TOKEN";
 
         public static AuthenticationBuilder AddJwtBearerWithSignalR(this AuthenticationBuilder builder)
         {
@@ -28,11 +29,11 @@ namespace ClimateMeter.Web.Hubs
                 builder.AddJwtBearer(authenticationScheme, AddSignalRTokenRetrieval(configureOptions));
 
         public static AuthenticationBuilder AddJwtBearerWithSignalR(this AuthenticationBuilder builder,
-            string authenticationScheme, string displayName, Action<JwtBearerOptions> configureOptions)
+            string authenticationScheme, string displayName, string jwtTokenQueryStringParameter, Action<JwtBearerOptions> configureOptions)
             =>
-                builder.AddJwtBearer(authenticationScheme, displayName, AddSignalRTokenRetrieval(configureOptions));
+                builder.AddJwtBearer(authenticationScheme, displayName, AddSignalRTokenRetrieval(configureOptions, jwtTokenQueryStringParameter));
         
-        private static Action<JwtBearerOptions> AddSignalRTokenRetrieval(Action<JwtBearerOptions> configureOptions)
+        private static Action<JwtBearerOptions> AddSignalRTokenRetrieval(Action<JwtBearerOptions> configureOptions, string jwtTokenParameter = DefaultJwtTokenQueryStringParameter)
         {
             return options =>
             {
@@ -43,7 +44,23 @@ namespace ClimateMeter.Web.Hubs
                     options.Events = new JwtBearerEvents();
                 }
 
+                var originalOnMessageReceived = options.Events.OnMessageReceived;
                 
+                options.Events.OnMessageReceived = async context =>
+                {                    
+                    if (originalOnMessageReceived != null)
+                    {
+                        await originalOnMessageReceived(context);
+                    }
+                    
+                    if (context.Token == null &&
+                        !context.HttpContext.Request.Headers.ContainsKey("Authorization") &&
+                        context.Request.Query.TryGetValue(jwtTokenParameter, out var token))
+                    {
+                        context.Token = token;
+                    }
+                };
+
             };
         }
     }
