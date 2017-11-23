@@ -34,8 +34,7 @@ namespace ClimateMeter.Web
                 {
                     logging
                         .AddConfiguration(hostingContext.Configuration.GetSection("Logging"))
-                        .AddConsole()
-                        .AddDebug();
+                        .AddConsole();
                 })
                 .UseDefaultServiceProvider((context, options) =>
                 {
