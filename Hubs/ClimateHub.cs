@@ -54,9 +54,19 @@ namespace ClimateMeter.Web.Hubs
             _log.LogInformation($"Registration completed, device's id: {deviceId}, name: {name}");
         }
 
-        public void AddSensorReading(Guid id, decimal temperature, decimal humidity)
+        public async Task AddSensorReading(Guid id, decimal temperature, decimal humidity)
         {
-            Console.WriteLine($"Data received from {id}, temp = {temperature}, humidity = {humidity}");
+            await _db.SensorReadings.AddAsync(new SensorReading()
+            {
+                DeviceId = id,
+                Temperature = temperature,
+                Humidity = humidity,
+                ReceivedOn = DateTimeOffset.UtcNow
+            });
+
+            await _db.SaveChangesAsync();
+                
+            _log.LogInformation($"Data received from {id}, temp = {temperature}, humidity = {humidity}");
         }
     }
 }
