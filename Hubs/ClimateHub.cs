@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using ClimateMeter.Web.DAL;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Logging;
 
 namespace ClimateMeter.Web.Hubs
 {
@@ -10,10 +11,12 @@ namespace ClimateMeter.Web.Hubs
     public class ClimateHub: Hub
     {
         private readonly ClimateMeterContext _db;
+        private readonly ILogger<ClimateHub> _log;
 
-        public ClimateHub(ClimateMeterContext db)
+        public ClimateHub(ClimateMeterContext db, ILogger<ClimateHub> log)
         {
             _db = db;
+            _log = log;
         }
         
         public async Task RegisterDevice(string name, string description)
