@@ -51,7 +51,7 @@ namespace ClimateMeter.Web
                 .UseAuthentication()
                 .UseDeveloperExceptionPage()
                 .EnsureMigrationsApplied<ClimateMeterContext>()
-                .UseStaticFiles()
+                .UseWhen(context => !context.Request.Path.StartsWithSegments("/index.html"), builder => builder.UseStaticFiles())
                 .UseSignalR(routes => routes.MapHub<ClimateHub>("socket/device"))
                 .UseMvc(routes => routes.MapRoute("catchAll", "{*url}", new { controller = "FrontEnd", action = "Index" }));
         }
