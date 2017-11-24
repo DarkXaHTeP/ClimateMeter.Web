@@ -53,7 +53,7 @@ namespace ClimateMeter.Web
                 .EnsureMigrationsApplied<ClimateMeterContext>()
                 .UseStaticFiles()
                 .UseSignalR(routes => routes.MapHub<ClimateHub>("socket/device"))
-                .UseMvc(routes => routes.MapRoute("catchAll", "{*url}", new { controller = "Home", action = "Index" }));
+                .UseMvc(routes => routes.MapRoute("catchAll", "{*url}", new { controller = "FrontEnd", action = "Index" }));
         }
     }
 }

@@ -4,18 +4,18 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ClimateMeter.Web.Controllers
 {
-    public class HomeController : Controller
+    public class FrontEndController : Controller
     {
         private readonly ClimateMeterContext _dbContext;
 
-        public HomeController(ClimateMeterContext dbContext)
+        public FrontEndController(ClimateMeterContext dbContext)
         {
             _dbContext = dbContext;
         }
         
         public IActionResult Index()
         {
-            return View();
+            return File("~/index.html", "text/html");
         }
 
         [Route("sensorreadings")]
