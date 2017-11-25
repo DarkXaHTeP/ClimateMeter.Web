@@ -1,3 +1,11 @@
+FROM node:9.2.0-stretch AS frontend-env
+
+WORKDIR /app
+
+COPY . ./
+RUN npm install
+RUN npm run build:prod
+
 FROM microsoft/aspnetcore-build:2.0 AS build-env
 WORKDIR /app
 
@@ -8,6 +16,8 @@ RUN dotnet restore
 
 # copy everything else and build
 COPY . ./
+COPY --from=frontend-env /app/wwwroot ./wwwroot
+
 RUN dotnet publish -c Release -o out
 
 # build runtime image
