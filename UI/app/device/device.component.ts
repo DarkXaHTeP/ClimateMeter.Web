@@ -17,7 +17,8 @@ export interface DeviceParams {
 })
 export class DeviceComponent implements OnInit {
     private paramsSubscription: Subscription;
-    private sensorReadings: SensorReading[] = [];
+    
+    sensorReadings: SensorReading[] = [];
     
     constructor(
         private activatedRoute: ActivatedRoute,
