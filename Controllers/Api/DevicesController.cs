@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Linq;
-using System.Threading.Tasks;
 using ClimateMeter.Web.DAL;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace ClimateMeter.Web.Controllers.Api
 {
