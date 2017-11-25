@@ -4,6 +4,7 @@ WORKDIR /app
 
 COPY . ./
 RUN npm install
+RUN npm run lint
 RUN npm run build:prod
 
 FROM microsoft/aspnetcore-build:2.0 AS build-env
