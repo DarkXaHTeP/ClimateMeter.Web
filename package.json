@@ -2,7 +2,7 @@
   "name": "climatemeter",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build",
     "build:prod": "ng build -prod",
     "lint": "ng lint"
