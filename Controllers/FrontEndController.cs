@@ -22,6 +22,11 @@ namespace ClimateMeter.Web.Controllers
         {
             IFileInfo file = _env.WebRootFileProvider.GetFileInfo("index.html");
 
+            if (!file.Exists)
+            {
+                return NotFound("index.html file is not found");
+            }
+            
             using (var stream = file.CreateReadStream())
             {
                 using (var reader = new StreamReader(stream))
