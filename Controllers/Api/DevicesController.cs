@@ -18,20 +18,20 @@ namespace ClimateMeter.Web.Controllers.Api
         }
         
         [HttpGet]
-        public async Task<IActionResult> List()
+        public IActionResult List()
         {
-            var devices = await _db.Devices.ToListAsync();
+            var devices = _db.Devices.ToList();
             return Ok(devices);
         }
 
         [HttpGet("{deviceId}/sensorreadings")]
-        public async Task<IActionResult> SensorReadings(Guid deviceId)
+        public IActionResult SensorReadings(Guid deviceId)
         {
-            var readings = await _db.SensorReadings
+            var readings = _db.SensorReadings
                 .Where(r => r.DeviceId == deviceId)
                 .Where(r => r.ReceivedOn > DateTimeOffset.UtcNow.AddDays(-3))
                 .OrderByDescending(r => r.ReceivedOn)
-                .ToListAsync();
+                .ToList();
 
             return Ok(readings);
         }
