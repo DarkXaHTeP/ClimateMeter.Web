@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,7 +11,7 @@ namespace ClimateMeter.Web.Hubs
 
         public static AuthenticationBuilder AddJwtBearerWithSignalR(this AuthenticationBuilder builder)
         {
-            return builder;
+            return builder.AddJwtBearer(AddSignalRTokenRetrieval(null));
         }
 
         public static AuthenticationBuilder AddJwtBearerWithSignalR(
