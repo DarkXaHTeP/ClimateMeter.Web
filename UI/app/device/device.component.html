@@ -1,3 +1,16 @@
-<p>
-  device works!
-</p>
+<table>
+    <thead>
+    <tr>
+        <th>Temperature</th>
+        <th>Humidity</th>
+        <th>Received On</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let reading of sensorReadings">
+        <td>{{ reading.temperature }}</td>
+        <td>{{ reading.humidity }}</td>
+        <td>{{ reading.receivedOn | date:'short' }}</td>
+    </tr>
+    </tbody>
+</table>

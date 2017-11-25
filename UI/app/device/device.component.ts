@@ -27,6 +27,7 @@ export class DeviceComponent implements OnInit {
     ngOnInit() {
         this.paramsSubscription = this.activatedRoute.params
             .map((params: DeviceParams) => params.deviceId)
+            .do(id => console.log("id is", id))
             .switchMap(deviceId => this.loadSensorReadings(deviceId))
             .subscribe(
                 readings => {
