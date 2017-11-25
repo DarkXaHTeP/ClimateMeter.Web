@@ -1,5 +1,5 @@
 <span *ngIf="isLoading">Loading...</span>
-<span *ngIf="!isLoading && error">{{ error }}</span>
+<span *ngIf="!isLoading && !!error">{{ error }}</span>
 <ul *ngIf="!isLoading && !error && devices.length > 0">
     <li *ngFor="let device of devices"><a routerLink="[ 'device', device.deviceId ]">{{ device.name }}</a></li>
 </ul>
