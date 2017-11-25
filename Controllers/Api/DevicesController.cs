@@ -30,8 +30,9 @@ namespace ClimateMeter.Web.Controllers.Api
             var readings = await _db.SensorReadings
                 .Where(r => r.DeviceId == deviceId)
                 .Where(r => r.ReceivedOn > DateTimeOffset.UtcNow.AddDays(-3))
+                .OrderByDescending(r => r.ReceivedOn)
                 .ToListAsync();
-                                
+
             return Ok(readings);
         }
     }
