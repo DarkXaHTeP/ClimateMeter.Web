@@ -7,7 +7,7 @@ import {routes} from "./app.routes";
 import {AppComponent} from './app.component';
 import {HomeComponent} from './home';
 import { DeviceApiService } from "./api";
-import { DeviceComponent } from './device/device.component';
+import { DeviceComponent } from './device';
 
 
 @NgModule({
