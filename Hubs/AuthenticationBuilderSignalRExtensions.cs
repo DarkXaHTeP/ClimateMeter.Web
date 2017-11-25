@@ -37,7 +37,7 @@ namespace ClimateMeter.Web.Hubs
         {
             return options =>
             {
-                configureOptions(options);
+                configureOptions?.Invoke(options);
 
                 if (options.Events == null)
                 {
