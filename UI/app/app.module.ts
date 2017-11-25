@@ -7,12 +7,14 @@ import {routes} from "./app.routes";
 import {AppComponent} from './app.component';
 import {HomeComponent} from './home';
 import { DeviceApiService } from "./api";
+import { DeviceComponent } from './device/device.component';
 
 
 @NgModule({
     declarations: [
         AppComponent,
-        HomeComponent
+        HomeComponent,
+        DeviceComponent
     ],
     imports: [
         BrowserModule,
